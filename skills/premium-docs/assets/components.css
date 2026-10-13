@@ -1,0 +1,848 @@
+/* ==========================================================================
+   premium-docs Component Stylesheet
+   ========================================================================== */
+
+/* --- Badges & Chips --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  line-height: 1;
+}
+
+.badge-draft {
+  background: var(--warning-soft);
+  color: var(--warning-fg);
+  border: 1px solid var(--warning-border);
+}
+
+.badge-review {
+  background: var(--info-soft);
+  color: var(--info-fg);
+  border: 1px solid var(--info-border);
+}
+
+.badge-final {
+  background: var(--success-soft);
+  color: var(--success-fg);
+  border: 1px solid var(--success-border);
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.tag-chip svg {
+  width: 12px;
+  height: 12px;
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   1. Callouts (note, tip, info, success, warning, danger)
+   ========================================================================== */
+
+.callout {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.callout-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-weight: 650;
+  font-size: var(--font-size-sm);
+  letter-spacing: -0.01em;
+}
+
+.callout-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.callout-title {
+  color: var(--text);
+}
+
+.callout-body {
+  font-size: var(--font-size-sm);
+  color: var(--text);
+  line-height: var(--line-height-relaxed);
+}
+.callout-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Callout Variants */
+.callout-info {
+  background: var(--info-soft);
+  border-color: var(--info-border);
+  border-left: 4px solid var(--info);
+}
+.callout-info .callout-icon,
+.callout-info .callout-title {
+  color: var(--info);
+}
+
+.callout-note {
+  background: var(--surface-raised);
+  border-color: var(--border);
+  border-left: 4px solid var(--text-muted);
+}
+.callout-note .callout-icon,
+.callout-note .callout-title {
+  color: var(--text-muted);
+}
+
+.callout-tip {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  border-left: 4px solid var(--accent);
+}
+.callout-tip .callout-icon,
+.callout-tip .callout-title {
+  color: var(--accent);
+}
+
+.callout-success {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  border-left: 4px solid var(--success);
+}
+.callout-success .callout-icon,
+.callout-success .callout-title {
+  color: var(--success);
+}
+
+.callout-warning {
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  border-left: 4px solid var(--warning);
+}
+.callout-warning .callout-icon,
+.callout-warning .callout-title {
+  color: var(--warning);
+}
+
+.callout-danger {
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  border-left: 4px solid var(--danger);
+}
+.callout-danger .callout-icon,
+.callout-danger .callout-title {
+  color: var(--danger);
+}
+
+/* ==========================================================================
+   2. TL;DR (Executive Summary)
+   ========================================================================== */
+
+.tldr-box {
+  margin: var(--space-6) 0 var(--space-8) 0;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--accent-border);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+.tldr-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+}
+
+.tldr-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  color: var(--accent);
+}
+.tldr-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.tldr-body {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--text);
+}
+.tldr-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   3. Cards Grid
+   ========================================================================== */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.card-item {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+.card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-border);
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+
+.card-body {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-snug);
+  flex: 1;
+}
+.card-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   4. Stats Tiles
+   ========================================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.stat-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.stat-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  margin-top: var(--space-1);
+}
+.stat-delta svg {
+  width: 13px;
+  height: 13px;
+}
+.stat-delta.positive {
+  color: var(--success);
+}
+.stat-delta.negative {
+  color: var(--danger);
+}
+.stat-delta.neutral {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   5. Steps Process
+   ========================================================================== */
+
+.steps-container {
+  margin: var(--space-6) 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.step-item {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+}
+
+.step-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  left: 15px;
+  bottom: -24px;
+  width: 2px;
+  background: var(--border);
+}
+
+.step-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  z-index: 1;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 0.15rem;
+}
+
+.step-title {
+  font-size: var(--font-size-base);
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.step-body {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+.step-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   6. Accessible Tabs
+   ========================================================================== */
+
+.tabs-container {
+  margin: var(--space-6) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.tab-list {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-raised);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-button {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+.tab-button:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+.tab-button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: var(--surface);
+}
+
+.tab-panel {
+  padding: var(--space-5);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--text);
+}
+.tab-panel[hidden] {
+  display: none;
+}
+.tab-panel > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   7. Compare Grid
+   ========================================================================== */
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.compare-col {
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-col-pro {
+  border-top: 4px solid var(--success);
+  background: var(--surface);
+}
+.compare-col-pro .compare-title {
+  color: var(--success);
+}
+
+.compare-col-con {
+  border-top: 4px solid var(--danger);
+  background: var(--surface);
+}
+.compare-col-con .compare-title {
+  color: var(--danger);
+}
+
+.compare-col-neutral {
+  border-top: 4px solid var(--accent);
+  background: var(--surface);
+}
+.compare-col-neutral .compare-title {
+  color: var(--accent);
+}
+
+.compare-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.compare-body {
+  font-size: var(--font-size-sm);
+  color: var(--text);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+.compare-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   8. FAQ Accordion
+   ========================================================================== */
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+details.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast);
+  overflow: hidden;
+}
+details.faq-item[open] {
+  border-color: var(--accent-border);
+}
+
+summary.faq-summary {
+  padding: var(--space-4) var(--space-5);
+  font-weight: 650;
+  font-size: var(--font-size-base);
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: background var(--transition-fast);
+}
+summary.faq-summary::-webkit-details-marker {
+  display: none;
+}
+summary.faq-summary:hover {
+  background: var(--surface-raised);
+}
+
+summary.faq-summary .faq-chevron {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+details.faq-item[open] summary.faq-summary .faq-chevron {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+
+.faq-content {
+  padding: 0 var(--space-5) var(--space-5) var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+.faq-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   9. File Tree
+   ========================================================================== */
+
+.filetree-container {
+  margin: var(--space-6) 0;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.filetree-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  white-space: pre;
+}
+
+.filetree-line svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.filetree-line.folder svg {
+  color: var(--accent);
+}
+.filetree-line.file svg {
+  color: var(--text-muted);
+}
+.filetree-comment {
+  color: var(--text-faint);
+  margin-left: var(--space-4);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   10. Key-Value Grid
+   ========================================================================== */
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+.kv-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.kv-key {
+  font-size: var(--font-size-xs);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  margin-bottom: 0.2rem;
+}
+
+.kv-value {
+  font-size: var(--font-size-sm);
+  font-weight: 550;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   11. Progress Bars
+   ========================================================================== */
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   12. Timeline
+   ========================================================================== */
+
+.timeline-container {
+  position: relative;
+  margin: var(--space-6) 0;
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-6) - 5px);
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+
+.timeline-time {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-title {
+  font-size: var(--font-size-base);
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.timeline-content {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==========================================================================
+   13. Code Blocks with Filename Header & Copy Button
+   ========================================================================== */
+
+.code-block-wrapper {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.code-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+}
+.code-title svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+}
+
+.code-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.copy-button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--surface-raised);
+}
+.copy-button svg {
+  width: 13px;
+  height: 13px;
+}
+.copy-button.copied {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background: var(--surface);
+  color: var(--text);
+}
+
+pre code {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* Line Highlighting */
+.hll {
+  background-color: var(--accent-soft);
+  display: block;
+  margin: 0 calc(-1 * var(--space-4));
+  padding: 0 var(--space-4);
+  border-left: 3px solid var(--accent);
+}
+
+/* ==========================================================================
+   Pygments Syntax Highlighting Mapped to CSS Tokens
+   ========================================================================== */
+.highlight .c, .highlight .ch, .highlight .cm, .highlight .c1, .highlight .cs { color: var(--text-faint); font-style: italic; } /* Comment */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: var(--accent); font-weight: 650; } /* Keyword */
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: var(--success-fg); } /* String */
+.highlight .na, .highlight .nc, .highlight .nd, .highlight .ne, .highlight .nf { color: var(--info-fg); font-weight: 600; } /* Function / Name */
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo { color: var(--warning-fg); } /* Number */
+.highlight .o, .highlight .ow { color: var(--text-muted); font-weight: 600; } /* Operator */
+.highlight .p { color: var(--text-muted); } /* Punctuation */
+.highlight .kt { color: var(--accent); } /* Type */

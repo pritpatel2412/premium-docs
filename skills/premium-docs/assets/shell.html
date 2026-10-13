@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{THEME}}" data-mode="{{MODE}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{CSP_META}}
+  <title>{{TITLE}}</title>
+  <style>
+{{THEME_CSS}}
+{{BASE_CSS}}
+{{COMPONENTS_CSS}}
+{{ACCENT_CSS}}
+  </style>
+</head>
+<body>
+  <a href="#doc-content" class="skip-link">Skip to content</a>
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  {{ICONS_SVG}}
+
+  <div class="doc-wrapper">
+    <header class="top-nav" role="banner">
+      <a href="#" class="brand-badge" aria-label="Document Overview">
+        <svg aria-hidden="true"><use href="#icon-file-text"></use></svg>
+        <span>{{TYPE_LABEL}}</span>
+      </a>
+      <div class="top-actions">
+        {{MOBILE_TOC_BUTTON}}
+        <button id="theme-toggle-btn" class="icon-btn" type="button" aria-label="Toggle Theme" title="Theme">
+          <svg aria-hidden="true"><use href="#icon-laptop"></use></svg>
+        </button>
+        <button id="print-btn" class="icon-btn" type="button" aria-label="Print Document" title="Print">
+          <svg aria-hidden="true"><use href="#icon-printer"></use></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="doc-hero" role="region" aria-label="Document Header">
+      <div class="hero-meta-top">
+        {{STATUS_BADGE}}
+        {{TAGS_CHIPS}}
+      </div>
+      <h1 class="doc-title">{{TITLE}}</h1>
+      {{SUBTITLE_HTML}}
+      <div class="hero-meta-bottom">
+        {{AUTHOR_HTML}}
+        {{DATE_HTML}}
+        {{READING_TIME_HTML}}
+      </div>
+    </section>
+
+    <div class="doc-grid {{GRID_CLASS}}">
+      {{SIDEBAR_TOC_HTML}}
+
+      <main id="doc-content" class="doc-content" role="main">
+        {{CONTENT_HTML}}
+      </main>
+    </div>
+
+    <footer class="doc-footer" role="contentinfo">
+      <div>
+        <span>Self-contained document</span>
+      </div>
+      <a href="#doc-content" class="back-to-top" aria-label="Back to top">
+        <svg aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+        <span>Back to top</span>
+      </a>
+    </footer>
+  </div>
+
+  {{MOBILE_TOC_DRAWER_HTML}}
+
+  <script>
+{{APP_JS}}
+  </script>
+</body>
+</html>

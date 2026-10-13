@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="slate" data-mode="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; script-src 'unsafe-inline';">
+  <title>Design System Showcase & Architecture Report</title>
+  <style>
+/* Theme: Slate (Neutral Technical Monochrome) */
+
+/* Light Mode (Default) */
+:root[data-theme="slate"],
+:root[data-theme="slate"][data-mode="light"],
+:root[data-theme="slate"]:not([data-mode="dark"]) {
+  --theme-name: "slate";
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Segoe UI Mono", Menlo, Consolas, monospace;
+
+  /* Surfaces & Backgrounds */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-raised: #f1f5f9;
+  --surface-card: #ffffff;
+  --border: #cbd5e1;
+  --border-subtle: #e2e8f0;
+
+  /* Typography */
+  --text: #020617;
+  --text-muted: #334155;
+  --text-faint: #64748b;
+
+  /* Accent (Charcoal / Architectural Slate) */
+  --accent: #0f172a;
+  --accent-hover: #1e293b;
+  --accent-soft: rgba(15, 23, 42, 0.07);
+  --accent-border: rgba(15, 23, 42, 0.25);
+  --accent-fg: #ffffff;
+  --hero-gradient: linear-gradient(135deg, rgba(51, 65, 85, 0.06) 0%, rgba(100, 116, 139, 0.03) 100%);
+  --hero-border: rgba(15, 23, 42, 0.15);
+
+  /* Semantic Feedback (Light) */
+  --info: #0369a1;
+  --info-soft: rgba(3, 105, 161, 0.08);
+  --info-border: rgba(3, 105, 161, 0.25);
+  --info-fg: #0369a1;
+
+  --success: #047857;
+  --success-soft: rgba(4, 120, 87, 0.08);
+  --success-border: rgba(4, 120, 87, 0.25);
+  --success-fg: #047857;
+
+  --warning: #b45309;
+  --warning-soft: rgba(180, 83, 9, 0.08);
+  --warning-border: rgba(180, 83, 9, 0.25);
+  --warning-fg: #92400e;
+
+  --danger: #be123c;
+  --danger-soft: rgba(190, 18, 60, 0.08);
+  --danger-border: rgba(190, 18, 60, 0.25);
+  --danger-fg: #9f1239;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(2, 6, 23, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(2, 6, 23, 0.07), 0 2px 4px -2px rgba(2, 6, 23, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(2, 6, 23, 0.08), 0 4px 6px -4px rgba(2, 6, 23, 0.04);
+}
+
+/* Dark Mode - System Preference */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="slate"]:not([data-mode="light"]) {
+    --bg: #090a0f;
+    --surface: #111319;
+    --surface-raised: #181b24;
+    --surface-card: #131620;
+    --border: #262a36;
+    --border-subtle: #1c202a;
+
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-faint: #64748b;
+
+    --accent: #94a3b8;
+    --accent-hover: #cbd5e1;
+    --accent-soft: rgba(148, 163, 184, 0.12);
+    --accent-border: rgba(148, 163, 184, 0.25);
+    --accent-fg: #090a0f;
+    --hero-gradient: linear-gradient(135deg, rgba(71, 85, 105, 0.12) 0%, rgba(30, 41, 59, 0.08) 100%);
+    --hero-border: rgba(148, 163, 184, 0.2);
+
+    --info: #38bdf8;
+    --info-soft: rgba(56, 189, 248, 0.12);
+    --info-border: rgba(56, 189, 248, 0.25);
+    --info-fg: #e0f2fe;
+
+    --success: #34d399;
+    --success-soft: rgba(52, 211, 153, 0.12);
+    --success-border: rgba(52, 211, 153, 0.25);
+    --success-fg: #d1fae5;
+
+    --warning: #fbbf24;
+    --warning-soft: rgba(251, 191, 36, 0.12);
+    --warning-border: rgba(251, 191, 36, 0.25);
+    --warning-fg: #fef3c7;
+
+    --danger: #fb7185;
+    --danger-soft: rgba(251, 113, 133, 0.12);
+    --danger-border: rgba(251, 113, 133, 0.25);
+    --danger-fg: #ffe4e6;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* Dark Mode - Explicit Override */
+:root[data-theme="slate"][data-mode="dark"] {
+  --bg: #090a0f;
+  --surface: #111319;
+  --surface-raised: #181b24;
+  --surface-card: #131620;
+  --border: #262a36;
+  --border-subtle: #1c202a;
+
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+
+  --accent: #94a3b8;
+  --accent-hover: #cbd5e1;
+  --accent-soft: rgba(148, 163, 184, 0.12);
+  --accent-border: rgba(148, 163, 184, 0.25);
+  --accent-fg: #090a0f;
+  --hero-gradient: linear-gradient(135deg, rgba(71, 85, 105, 0.12) 0%, rgba(30, 41, 59, 0.08) 100%);
+  --hero-border: rgba(148, 163, 184, 0.2);
+
+  --info: #38bdf8;
+  --info-soft: rgba(56, 189, 248, 0.12);
+  --info-border: rgba(56, 189, 248, 0.25);
+  --info-fg: #e0f2fe;
+
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.12);
+  --success-border: rgba(52, 211, 153, 0.25);
+  --success-fg: #d1fae5;
+
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.12);
+  --warning-border: rgba(251, 191, 36, 0.25);
+  --warning-fg: #fef3c7;
+
+  --danger: #fb7185;
+  --danger-soft: rgba(251, 113, 133, 0.12);
+  --danger-border: rgba(251, 113, 133, 0.25);
+  --danger-fg: #ffe4e6;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.45);
+}
+
+/* ==========================================================================
+   premium-docs Base Stylesheet & Design System
+   ========================================================================== */
+
+/* --- CSS Reset & Box Sizing --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Spacing Scale (4/8 Scale) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Layout Dimensions */
+  --measure: 72ch;
+  --layout-max-width: 1360px;
+  --toc-width: 260px;
+
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1.0625rem; /* 17px */
+  --font-size-md: 1.1875rem; /* 19px */
+  --font-size-lg: 1.375rem;  /* 22px */
+  --font-size-xl: 1.75rem;   /* 28px */
+  --font-size-2xl: 2.25rem;  /* 36px */
+  --font-size-3xl: 2.75rem;  /* 44px */
+
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.4;
+  --line-height-relaxed: 1.7;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--text);
+  background-color: var(--bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color var(--transition-base), color var(--transition-base);
+  overflow-x: hidden;
+}
+
+/* Accessibility: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  background: var(--accent);
+  color: var(--accent-fg);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* Focus Visible Rings (WCAG AA) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Top Reading Progress Bar */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 50ms linear;
+}
+
+/* ==========================================================================
+   Document Shell Layout
+   ========================================================================== */
+
+.doc-wrapper {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Action Bar / Header */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-6);
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.brand-badge svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.icon-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--surface-raised);
+}
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mobile-toc-btn {
+  display: none;
+}
+
+/* Hero Section */
+.doc-hero {
+  background: var(--hero-gradient);
+  border: 1px solid var(--hero-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-8);
+  margin-bottom: var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-meta-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.doc-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-tight);
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: var(--space-3);
+  max-width: var(--measure);
+}
+
+.doc-subtitle {
+  font-size: var(--font-size-md);
+  color: var(--text-muted);
+  line-height: var(--line-height-snug);
+  max-width: var(--measure);
+  margin-bottom: var(--space-6);
+}
+
+.hero-meta-bottom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-4);
+}
+.hero-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.hero-meta-item svg {
+  width: 15px;
+  height: 15px;
+  color: var(--accent);
+}
+
+/* Two-Column Grid: TOC + Content */
+.doc-grid {
+  display: grid;
+  grid-template-columns: var(--toc-width) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+  flex: 1;
+}
+
+.doc-grid.no-toc {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Sticky Left Desktop TOC */
+.doc-sidebar {
+  position: sticky;
+  top: var(--space-6);
+  max-height: calc(100vh - var(--space-12));
+  overflow-y: auto;
+  padding-right: var(--space-4);
+  scrollbar-width: thin;
+}
+.doc-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.doc-sidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-full);
+}
+
+.toc-heading {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.toc-list {
+  list-style: none;
+  font-size: var(--font-size-sm);
+  border-left: 1px solid var(--border);
+}
+.toc-item {
+  margin: var(--space-1) 0;
+}
+.toc-link {
+  display: block;
+  padding: var(--space-1) 0 var(--space-1) var(--space-3);
+  color: var(--text-muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  transition: all var(--transition-fast);
+  line-height: var(--line-height-snug);
+}
+.toc-link:hover {
+  color: var(--text);
+  border-left-color: var(--border);
+}
+.toc-link.active {
+  color: var(--accent);
+  font-weight: 600;
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.toc-item.level-3 .toc-link {
+  padding-left: var(--space-6);
+  font-size: var(--font-size-xs);
+}
+
+/* Mobile Drawer TOC */
+.mobile-toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.mobile-toc-overlay.open {
+  display: block;
+  opacity: 1;
+}
+
+.mobile-toc-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 85vw;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: var(--space-6);
+  z-index: 1060;
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+  overflow-y: auto;
+}
+.mobile-toc-drawer.open {
+  transform: translateX(0);
+}
+.mobile-toc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Main Prose Content Measure */
+.doc-content {
+  max-width: var(--measure);
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: var(--space-16);
+}
+
+.doc-grid.no-toc .doc-content {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Typography & Elements Rhythm
+   ========================================================================== */
+
+.doc-content h1,
+.doc-content h2,
+.doc-content h3,
+.doc-content h4,
+.doc-content h5,
+.doc-content h6 {
+  font-family: var(--font-heading);
+  color: var(--text);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+  position: relative;
+  letter-spacing: -0.015em;
+  scroll-margin-top: var(--space-8);
+}
+
+.doc-content h1 {
+  font-size: var(--font-size-2xl);
+  margin-top: 0;
+}
+.doc-content h2 {
+  font-size: var(--font-size-xl);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-2);
+}
+.doc-content h3 {
+  font-size: var(--font-size-lg);
+}
+.doc-content h4 {
+  font-size: var(--font-size-md);
+}
+
+/* Heading Anchor Links */
+.heading-anchor {
+  position: absolute;
+  left: -1.25em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-faint);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+  padding-right: var(--space-2);
+}
+.doc-content h1:hover .heading-anchor,
+.doc-content h2:hover .heading-anchor,
+.doc-content h3:hover .heading-anchor,
+.doc-content h4:hover .heading-anchor {
+  opacity: 1;
+}
+.heading-anchor:hover {
+  color: var(--accent);
+}
+
+.doc-content p {
+  margin-bottom: var(--space-5);
+  color: var(--text);
+}
+
+.doc-content strong {
+  font-weight: 650;
+  color: var(--text);
+}
+
+.doc-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+.doc-content a:hover {
+  color: var(--accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+.doc-content ul,
+.doc-content ol {
+  margin-bottom: var(--space-5);
+  padding-left: var(--space-6);
+  color: var(--text);
+}
+.doc-content li {
+  margin-bottom: var(--space-2);
+  line-height: var(--line-height-relaxed);
+}
+.doc-content li > ul,
+.doc-content li > ol {
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+}
+
+/* Task Lists */
+.task-list-item {
+  list-style: none;
+  margin-left: calc(-1 * var(--space-6));
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.task-list-item input[type="checkbox"] {
+  accent-color: var(--accent);
+  transform: translateY(1px);
+}
+
+/* Blockquotes */
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding: var(--space-3) var(--space-5);
+  margin: var(--space-6) 0;
+  background: var(--surface-raised);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--text-muted);
+}
+.doc-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Horizontal Rule */
+.doc-content hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--space-10) 0;
+}
+
+/* Inline Code */
+:not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.18em 0.4em;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+/* Tables */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: var(--space-6) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  text-align: left;
+}
+
+thead {
+  background: var(--surface-raised);
+  position: sticky;
+  top: 0;
+}
+
+th {
+  padding: var(--space-3) var(--space-4);
+  font-weight: 650;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text);
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:hover {
+  background: var(--surface-raised);
+}
+
+/* Footer */
+.doc-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-8) 0;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--font-size-xs);
+  color: var(--text-faint);
+}
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+.back-to-top:hover {
+  color: var(--accent);
+}
+.back-to-top svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .doc-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .doc-sidebar {
+    display: none;
+  }
+  .mobile-toc-btn {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .doc-wrapper {
+    padding: 0 var(--space-4);
+  }
+  .doc-hero {
+    padding: var(--space-6) var(--space-4);
+  }
+  .doc-title {
+    font-size: var(--font-size-2xl);
+  }
+  .hero-meta-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}
+
+/* ==========================================================================
+   Print Stylesheet
+   ========================================================================== */
+
+@media print {
+  #reading-progress,
+  .top-nav,
+  .doc-sidebar,
+  .mobile-toc-btn,
+  .mobile-toc-overlay,
+  .mobile-toc-drawer,
+  .icon-btn,
+  .copy-button,
+  .back-to-top {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  .doc-wrapper {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .doc-grid {
+    display: block !important;
+  }
+
+  .doc-content {
+    max-width: 100% !important;
+  }
+
+  .doc-hero {
+    border: 1px solid #ccc !important;
+    background: #fdfdfd !important;
+    padding: 1.5rem !important;
+  }
+
+  .card-item,
+  .stat-tile,
+  .callout,
+  .table-wrapper,
+  .code-block-wrapper,
+  blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+
+  /* Expand hidden interactive content */
+  details {
+    display: block !important;
+  }
+  details[open] summary ~ * {
+    display: block !important;
+  }
+  .tab-panel {
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #666;
+  }
+}
+
+/* Motion Sensitivity */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   premium-docs Component Stylesheet
+   ========================================================================== */
+
+/* --- Badges & Chips --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  line-height: 1;
+}
+
+.badge-draft {
+  background: var(--warning-soft);
+  color: var(--warning-fg);
+  border: 1px solid var(--warning-border);
+}
+
+.badge-review {
+  background: var(--info-soft);
+  color: var(--info-fg);
+  border: 1px solid var(--info-border);
+}
+
+.badge-final {
+  background: var(--success-soft);
+  color: var(--success-fg);
+  border: 1px solid var(--success-border);
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.tag-chip svg {
+  width: 12px;
+  height: 12px;
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   1. Callouts (note, tip, info, success, warning, danger)
+   ========================================================================== */
+
+.callout {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.callout-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-weight: 650;
+  font-size: var(--font-size-sm);
+  letter-spacing: -0.01em;
+}
+
+.callout-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.callout-title {
+  color: var(--text);
+}
+
+.callout-body {
+  font-size: var(--font-size-sm);
+  color: var(--text);
+  line-height: var(--line-height-relaxed);
+}
+.callout-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Callout Variants */
+.callout-info {
+  background: var(--info-soft);
+  border-color: var(--info-border);
+  border-left: 4px solid var(--info);
+}
+.callout-info .callout-icon,
+.callout-info .callout-title {
+  color: var(--info);
+}
+
+.callout-note {
+  background: var(--surface-raised);
+  border-color: var(--border);
+  border-left: 4px solid var(--text-muted);
+}
+.callout-note .callout-icon,
+.callout-note .callout-title {
+  color: var(--text-muted);
+}
+
+.callout-tip {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  border-left: 4px solid var(--accent);
+}
+.callout-tip .callout-icon,
+.callout-tip .callout-title {
+  color: var(--accent);
+}
+
+.callout-success {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  border-left: 4px solid var(--success);
+}
+.callout-success .callout-icon,
+.callout-success .callout-title {
+  color: var(--success);
+}
+
+.callout-warning {
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  border-left: 4px solid var(--warning);
+}
+.callout-warning .callout-icon,
+.callout-warning .callout-title {
+  color: var(--warning);
+}
+
+.callout-danger {
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  border-left: 4px solid var(--danger);
+}
+.callout-danger .callout-icon,
+.callout-danger .callout-title {
+  color: var(--danger);
+}
+
+/* ==========================================================================
+   2. TL;DR (Executive Summary)
+   ========================================================================== */
+
+.tldr-box {
+  margin: var(--space-6) 0 var(--space-8) 0;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--accent-border);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+.tldr-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+}
+
+.tldr-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  color: var(--accent);
+}
+.tldr-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.tldr-body {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--text);
+}
+.tldr-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   3. Cards Grid
+   ========================================================================== */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.card-item {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+.card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-border);
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+
+.card-body {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-snug);
+  flex: 1;
+}
+.card-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   4. Stats Tiles
+   ========================================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.stat-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.stat-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  margin-top: var(--space-1);
+}
+.stat-delta svg {
+  width: 13px;
+  height: 13px;
+}
+.stat-delta.positive {
+  color: var(--success);
+}
+.stat-delta.negative {
+  color: var(--danger);
+}
+.stat-delta.neutral {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   5. Steps Process
+   ========================================================================== */
+
+.steps-container {
+  margin: var(--space-6) 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.step-item {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+}
+
+.step-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  left: 15px;
+  bottom: -24px;
+  width: 2px;
+  background: var(--border);
+}
+
+.step-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  z-index: 1;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 0.15rem;
+}
+
+.step-title {
+  font-size: var(--font-size-base);
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.step-body {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+.step-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   6. Accessible Tabs
+   ========================================================================== */
+
+.tabs-container {
+  margin: var(--space-6) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.tab-list {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-raised);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-button {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+.tab-button:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+.tab-button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: var(--surface);
+}
+
+.tab-panel {
+  padding: var(--space-5);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--text);
+}
+.tab-panel[hidden] {
+  display: none;
+}
+.tab-panel > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   7. Compare Grid
+   ========================================================================== */
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.compare-col {
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-col-pro {
+  border-top: 4px solid var(--success);
+  background: var(--surface);
+}
+.compare-col-pro .compare-title {
+  color: var(--success);
+}
+
+.compare-col-con {
+  border-top: 4px solid var(--danger);
+  background: var(--surface);
+}
+.compare-col-con .compare-title {
+  color: var(--danger);
+}
+
+.compare-col-neutral {
+  border-top: 4px solid var(--accent);
+  background: var(--surface);
+}
+.compare-col-neutral .compare-title {
+  color: var(--accent);
+}
+
+.compare-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.compare-body {
+  font-size: var(--font-size-sm);
+  color: var(--text);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+.compare-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   8. FAQ Accordion
+   ========================================================================== */
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+details.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast);
+  overflow: hidden;
+}
+details.faq-item[open] {
+  border-color: var(--accent-border);
+}
+
+summary.faq-summary {
+  padding: var(--space-4) var(--space-5);
+  font-weight: 650;
+  font-size: var(--font-size-base);
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: background var(--transition-fast);
+}
+summary.faq-summary::-webkit-details-marker {
+  display: none;
+}
+summary.faq-summary:hover {
+  background: var(--surface-raised);
+}
+
+summary.faq-summary .faq-chevron {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+details.faq-item[open] summary.faq-summary .faq-chevron {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+
+.faq-content {
+  padding: 0 var(--space-5) var(--space-5) var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+.faq-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   9. File Tree
+   ========================================================================== */
+
+.filetree-container {
+  margin: var(--space-6) 0;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.filetree-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  white-space: pre;
+}
+
+.filetree-line svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.filetree-line.folder svg {
+  color: var(--accent);
+}
+.filetree-line.file svg {
+  color: var(--text-muted);
+}
+.filetree-comment {
+  color: var(--text-faint);
+  margin-left: var(--space-4);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   10. Key-Value Grid
+   ========================================================================== */
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+.kv-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.kv-key {
+  font-size: var(--font-size-xs);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  margin-bottom: 0.2rem;
+}
+
+.kv-value {
+  font-size: var(--font-size-sm);
+  font-weight: 550;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   11. Progress Bars
+   ========================================================================== */
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   12. Timeline
+   ========================================================================== */
+
+.timeline-container {
+  position: relative;
+  margin: var(--space-6) 0;
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-6) - 5px);
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+
+.timeline-time {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-title {
+  font-size: var(--font-size-base);
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.timeline-content {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==========================================================================
+   13. Code Blocks with Filename Header & Copy Button
+   ========================================================================== */
+
+.code-block-wrapper {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.code-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+}
+.code-title svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+}
+
+.code-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.copy-button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--surface-raised);
+}
+.copy-button svg {
+  width: 13px;
+  height: 13px;
+}
+.copy-button.copied {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background: var(--surface);
+  color: var(--text);
+}
+
+pre code {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* Line Highlighting */
+.hll {
+  background-color: var(--accent-soft);
+  display: block;
+  margin: 0 calc(-1 * var(--space-4));
+  padding: 0 var(--space-4);
+  border-left: 3px solid var(--accent);
+}
+
+/* ==========================================================================
+   Pygments Syntax Highlighting Mapped to CSS Tokens
+   ========================================================================== */
+.highlight .c, .highlight .ch, .highlight .cm, .highlight .c1, .highlight .cs { color: var(--text-faint); font-style: italic; } /* Comment */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: var(--accent); font-weight: 650; } /* Keyword */
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: var(--success-fg); } /* String */
+.highlight .na, .highlight .nc, .highlight .nd, .highlight .ne, .highlight .nf { color: var(--info-fg); font-weight: 600; } /* Function / Name */
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo { color: var(--warning-fg); } /* Number */
+.highlight .o, .highlight .ow { color: var(--text-muted); font-weight: 600; } /* Operator */
+.highlight .p { color: var(--text-muted); } /* Punctuation */
+.highlight .kt { color: var(--accent); } /* Type */
+
+
+  </style>
+</head>
+<body>
+  <a href="#doc-content" class="skip-link">Skip to content</a>
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <defs>
+    <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 16v-4"></path>
+      <path d="M12 8h.01"></path>
+    </symbol>
+    <symbol id="icon-alert-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </symbol>
+    <symbol id="icon-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+      <line x1="12" y1="9" x2="12" y2="13"></line>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </symbol>
+    <symbol id="icon-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="15" y1="9" x2="9" y2="15"></line>
+      <line x1="9" y1="9" x2="15" y2="15"></line>
+    </symbol>
+    <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+      <path d="M9 18h6"></path>
+      <path d="M10 22h4"></path>
+    </symbol>
+    <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+    </symbol>
+    <symbol id="icon-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <line x1="10" y1="9" x2="8" y2="9"></line>
+    </symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+    </symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </symbol>
+    <symbol id="icon-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" y1="14" x2="21" y2="3"></line>
+    </symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="m4.93 4.93 1.41 1.41"></path>
+      <path d="m17.66 17.66 1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="m6.34 17.66-1.41 1.41"></path>
+      <path d="m19.07 4.93-1.41 1.41"></path>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+    </symbol>
+    <symbol id="icon-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect width="18" height="12" x="3" y="4" rx="2" ry="2"></rect>
+      <line x1="2" y1="20" x2="22" y2="20"></line>
+    </symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="4" y1="12" x2="20" y2="12"></line>
+      <line x1="4" y1="6" x2="20" y2="6"></line>
+      <line x1="4" y1="18" x2="20" y2="18"></line>
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+    <symbol id="icon-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+      <rect width="12" height="8" x="6" y="14"></rect>
+    </symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <polyline points="12 6 12 12 16 14"></polyline>
+    </symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+      <line x1="16" y1="2" x2="16" y2="6"></line>
+      <line x1="8" y1="2" x2="8" y2="6"></line>
+      <line x1="3" y1="10" x2="21" y2="10"></line>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
+      <path d="M7 7h.01"></path>
+    </symbol>
+    <symbol id="icon-help-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+      <polyline points="2 17 12 22 22 17"></polyline>
+      <polyline points="2 12 12 17 22 12"></polyline>
+    </symbol>
+    <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+      <polyline points="17 6 23 6 23 12"></polyline>
+    </symbol>
+    <symbol id="icon-trending-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+      <polyline points="17 18 23 18 23 12"></polyline>
+    </symbol>
+  </defs>
+</svg>
+
+
+  <div class="doc-wrapper">
+    <header class="top-nav" role="banner">
+      <a href="#" class="brand-badge" aria-label="Document Overview">
+        <svg aria-hidden="true"><use href="#icon-file-text"></use></svg>
+        <span>Architecture Report</span>
+      </a>
+      <div class="top-actions">
+        <button id="mobile-toc-toggle" class="icon-btn mobile-toc-btn" type="button" aria-label="Table of Contents" title="Table of Contents"><svg><use href="#icon-menu"></use></svg></button>
+        <button id="theme-toggle-btn" class="icon-btn" type="button" aria-label="Toggle Theme" title="Theme">
+          <svg aria-hidden="true"><use href="#icon-laptop"></use></svg>
+        </button>
+        <button id="print-btn" class="icon-btn" type="button" aria-label="Print Document" title="Print">
+          <svg aria-hidden="true"><use href="#icon-printer"></use></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="doc-hero" role="region" aria-label="Document Header">
+      <div class="hero-meta-top">
+        <span class="badge badge-final">Final Specification</span>
+        <span class="tag-chip"><svg><use href="#icon-tag"></use></svg>Architecture</span><span class="tag-chip"><svg><use href="#icon-tag"></use></svg>Design System</span>
+      </div>
+      <h1 class="doc-title">Design System Showcase & Architecture Report</h1>
+      <p class="doc-subtitle">A comprehensive demonstration of the visual hierarchy, component taxonomy, responsive grid, and typography tokens across the premium-docs design system.</p>
+      <div class="hero-meta-bottom">
+        <div class="hero-meta-item"><svg><use href="#icon-user"></use></svg><span>Staff Engineering Team</span></div>
+        <div class="hero-meta-item"><svg><use href="#icon-calendar"></use></svg><span>October 2026</span></div>
+        <div class="hero-meta-item"><svg><use href="#icon-clock"></use></svg><span>4 min read</span></div>
+      </div>
+    </section>
+
+    <div class="doc-grid ">
+      <aside class="doc-sidebar" aria-label="Table of contents"><div class="toc-heading"><svg><use href="#icon-layers"></use></svg><span>Contents</span></div>
+    <ul class="toc-list">
+      <li class="toc-item level-2"><a href="#key-metrics" class="toc-link">Key Performance Metrics</a></li>
+      <li class="toc-item level-2"><a href="#feature-architecture" class="toc-link">Architecture Components</a></li>
+      <li class="toc-item level-2"><a href="#callouts-feedback" class="toc-link">Semantic Callouts</a></li>
+      <li class="toc-item level-2"><a href="#interactive-tabs" class="toc-link">Implementation Profiles</a></li>
+      <li class="toc-item level-2"><a href="#comparison" class="toc-link">Architectural Comparison</a></li>
+      <li class="toc-item level-2"><a href="#code-sample" class="toc-link">Code Demonstration</a></li>
+      <li class="toc-item level-2"><a href="#file-structure" class="toc-link">Repository Structure</a></li>
+      <li class="toc-item level-2"><a href="#faq" class="toc-link">Frequently Asked Questions</a></li>
+    </ul>
+    </aside>
+
+      <main id="doc-content" class="doc-content" role="main">
+        
+    <div class="tldr-box">
+      <div class="tldr-header">
+        <svg class="tldr-icon"><use href="#icon-zap"></use></svg>
+        <span>Executive Summary</span>
+      </div>
+      <div class="tldr-body">
+        <p><strong>premium-docs</strong> gives AI coding agents the capability to produce visually refined, self-contained HTML documents with zero external dependencies, total offline privacy, and WCAG AA compliance across desktop and mobile form factors.</p>
+      </div>
+    </div>
+
+    <h2 id="key-metrics">Key Performance Metrics</h2>
+    <p>Operational health across regional distributed storage clusters over the past 30 days:</p>
+    <div class="stats-grid">
+      <div class="stat-tile">
+        <div class="stat-value">99.995%</div>
+        <div class="stat-label">Availability SLA</div>
+        <div class="stat-delta positive">
+          <svg><use href="#icon-trending-up"></use></svg>
+          <span>+0.04% vs Q1</span>
+        </div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-value">14.2ms</div>
+        <div class="stat-label">p99 Latency</div>
+        <div class="stat-delta positive">
+          <svg><use href="#icon-trending-up"></use></svg>
+          <span>-3.8ms improvement</span>
+        </div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-value">4.2M</div>
+        <div class="stat-label">Req / Sec</div>
+        <div class="stat-delta neutral">
+          <svg><use href="#icon-activity"></use></svg>
+          <span>Peak throughput</span>
+        </div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-value">0.001%</div>
+        <div class="stat-label">Error Rate</div>
+        <div class="stat-delta positive">
+          <svg><use href="#icon-trending-up"></use></svg>
+          <span>Under error budget</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="feature-architecture">Architecture Components</h2>
+    <p>The system is structured into four decoupled layers for resilient execution:</p>
+    <div class="cards-grid">
+      <div class="card-item">
+        <div class="card-title">1. Content Authoring (Lean MD)</div>
+        <div class="card-body">Agents author standard Markdown with YAML front matter and Docusaurus-style container blocks. Zero style pollution in prompt context.</div>
+      </div>
+      <div class="card-item">
+        <div class="card-title">2. In-Memory Converter</div>
+        <div class="card-body">A deterministic single-pass AST preprocessor that parses nested containers and inlines syntax tokens via Pygments.</div>
+      </div>
+      <div class="card-item">
+        <div class="card-title">3. Self-Contained Shell</div>
+        <div class="card-body">Embeds CSS custom properties, SVG symbols, and client JS directly into one standalone HTML file with strict CSP headers.</div>
+      </div>
+    </div>
+
+    <h2 id="callouts-feedback">Semantic Callouts</h2>
+    <div class="callout callout-info">
+      <div class="callout-header">
+        <svg class="callout-icon"><use href="#icon-info"></use></svg>
+        <span class="callout-title">System Information</span>
+      </div>
+      <div class="callout-body">All stylesheets and assets are bundled directly into the output file. No runtime CDN requests or external tracker beacons are executed.</div>
+    </div>
+
+    <div class="callout callout-tip">
+      <div class="callout-header">
+        <svg class="callout-icon"><use href="#icon-lightbulb"></use></svg>
+        <span class="callout-title">Optimization Tip</span>
+      </div>
+      <div class="callout-body">Enable the sticky TOC for documents longer than 1,000 words to provide readers effortless keyboard and scroll navigation.</div>
+    </div>
+
+    <div class="callout callout-warning">
+      <div class="callout-header">
+        <svg class="callout-icon"><use href="#icon-alert-triangle"></use></svg>
+        <span class="callout-title">Deprecation Notice</span>
+      </div>
+      <div class="callout-body">The legacy single-file `.agent/` configuration will be retired in v0.3. Use the standardized `.agents/skills/` directory tree.</div>
+    </div>
+
+    <h2 id="interactive-tabs">Implementation Profiles</h2>
+    <div class="tabs-container">
+      <div class="tab-list" role="tablist">
+        <button class="tab-button" role="tab" aria-selected="true" id="tab-1">Python Engine</button>
+        <button class="tab-button" role="tab" aria-selected="false" id="tab-2">Agent Skill</button>
+        <button class="tab-button" role="tab" aria-selected="false" id="tab-3">CLI Installer</button>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="panel-1">
+        <p>The build engine runs on Python 3.9+ using standard libraries and Python-Markdown. It handles recursive container trees and strict line-level error reporting.</p>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="panel-2" hidden>
+        <p>The Agent Skill is packaged under <code>skills/premium-docs/</code> with a concise <code>SKILL.md</code> under 500 lines adhering to progressive disclosure guidelines.</p>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="panel-3" hidden>
+        <p>The cross-platform installer <code>install.py</code> sets up symlinks or directory copies for Antigravity, Claude Code, Cursor, Gemini CLI, and other agent platforms.</p>
+      </div>
+    </div>
+
+    <h2 id="comparison">Architectural Comparison</h2>
+    <div class="compare-grid">
+      <div class="compare-col compare-col-pro">
+        <div class="compare-title">
+          <svg style="width:18px;height:18px;"><use href="#icon-check-circle"></use></svg>
+          <span>premium-docs Approach</span>
+        </div>
+        <div class="compare-body">
+          <ul>
+            <li>Single self-contained HTML file</li>
+            <li>Zero external dependencies or CDNs</li>
+            <li>Strict Content Security Policy</li>
+            <li>WCAG AA contrast in light & dark modes</li>
+            <li>Print-ready stylesheets</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-col compare-col-con">
+        <div class="compare-title">
+          <svg style="width:18px;height:18px;"><use href="#icon-x-circle"></use></svg>
+          <span>Traditional Doc Generators</span>
+        </div>
+        <div class="compare-body">
+          <ul>
+            <li>Heavy Node/Vite build toolchain required</li>
+            <li>Fragile multi-file asset folders</li>
+            <li>External Google Fonts and CDN scripts</li>
+            <li>Broken mobile & print formatting</li>
+            <li>Slow compile and complex setup</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="code-sample">Code Demonstration</h2>
+    <div class="code-block-wrapper">
+      <div class="code-header">
+        <div class="code-title">
+          <svg><use href="#icon-file"></use></svg>
+          <span>scripts/build_doc.py</span>
+        </div>
+        <div class="code-actions">
+          <button class="copy-button" type="button" aria-label="Copy code">
+            <svg><use href="#icon-copy"></use></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+      <pre><code><span class="highlight"><span class="k">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="k">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">input_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># Read markdown with YAML frontmatter</span>
+    <span class="n">raw_text</span> <span class="o">=</span> <span class="n">input_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">parse_document</span><span class="p">(</span><span class="n">raw_text</span><span class="p">)</span>
+    <span class="n">output_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">to_html</span><span class="p">(),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Built self-contained doc: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre>
+    </div>
+
+    <h2 id="file-structure">Repository Structure</h2>
+    <div class="filetree-container">
+      <div class="filetree-line folder"><svg><use href="#icon-folder"></use></svg> premium-docs/</div>
+      <div class="filetree-line folder">&nbsp;&nbsp;├── <svg><use href="#icon-folder"></use></svg> skills/premium-docs/ <span class="filetree-comment"># The agent skill</span></div>
+      <div class="filetree-line file">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <svg><use href="#icon-file"></use></svg> SKILL.md</div>
+      <div class="filetree-line folder">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <svg><use href="#icon-folder"></use></svg> assets/ <span class="filetree-comment"># Inlined CSS, JS, SVG</span></div>
+      <div class="filetree-line folder">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <svg><use href="#icon-folder"></use></svg> scripts/ <span class="filetree-comment"># build_doc.py & validate_doc.py</span></div>
+      <div class="filetree-line folder">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <svg><use href="#icon-folder"></use></svg> references/ <span class="filetree-comment"># Progressive disclosure guides</span></div>
+      <div class="filetree-line folder">&nbsp;&nbsp;├── <svg><use href="#icon-folder"></use></svg> adapters/ <span class="filetree-comment"># Antigravity, Claude, Cursor, Gemini</span></div>
+      <div class="filetree-line file">&nbsp;&nbsp;└── <svg><use href="#icon-file"></use></svg> install.py <span class="filetree-comment"># Cross-platform installer</span></div>
+    </div>
+
+    <h2 id="faq">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Does this document require internet access to view?</span>
+          <svg class="faq-chevron"><use href="#icon-chevron-right"></use></svg>
+        </summary>
+        <div class="faq-content">
+          <p>No. All styling, SVG icons, fonts, and client scripts are directly embedded into the single HTML file. You can open it offline, attach it to emails, or host it on any static server.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>How does dark mode persist across reloads?</span>
+          <svg class="faq-chevron"><use href="#icon-chevron-right"></use></svg>
+        </summary>
+        <div class="faq-content">
+          <p>The mode setting is stored in local storage inside a safe try-catch wrapper. If local storage is disabled (e.g. in high-security iframe sandboxes), it gracefully defaults to the operating system's prefers-color-scheme.</p>
+        </div>
+      </details>
+    </div>
+    
+      </main>
+    </div>
+
+    <footer class="doc-footer" role="contentinfo">
+      <div>
+        <span>Self-contained document</span>
+      </div>
+      <a href="#doc-content" class="back-to-top" aria-label="Back to top">
+        <svg aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+        <span>Back to top</span>
+      </a>
+    </footer>
+  </div>
+
+  <div id="mobile-toc-overlay" class="mobile-toc-overlay"></div><div id="mobile-toc-drawer" class="mobile-toc-drawer"><div class="mobile-toc-header"><strong>Contents</strong><button id="mobile-toc-close" class="icon-btn" type="button" aria-label="Close Table of Contents"><svg><use href="#icon-x"></use></svg></button></div>
+    <ul class="toc-list">
+      <li class="toc-item level-2"><a href="#key-metrics" class="toc-link">Key Performance Metrics</a></li>
+      <li class="toc-item level-2"><a href="#feature-architecture" class="toc-link">Architecture Components</a></li>
+      <li class="toc-item level-2"><a href="#callouts-feedback" class="toc-link">Semantic Callouts</a></li>
+      <li class="toc-item level-2"><a href="#interactive-tabs" class="toc-link">Implementation Profiles</a></li>
+      <li class="toc-item level-2"><a href="#comparison" class="toc-link">Architectural Comparison</a></li>
+      <li class="toc-item level-2"><a href="#code-sample" class="toc-link">Code Demonstration</a></li>
+      <li class="toc-item level-2"><a href="#file-structure" class="toc-link">Repository Structure</a></li>
+      <li class="toc-item level-2"><a href="#faq" class="toc-link">Frequently Asked Questions</a></li>
+    </ul>
+    </div>
+
+  <script>
+/**
+ * premium-docs Client Engine (app.js)
+ * Lightweight, zero-dependency, self-contained interactive features.
+ */
+(function () {
+  'use strict';
+
+  // --- Safe Storage Helper (handles private mode & sandboxes) ---
+  const Storage = {
+    get: function (key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (e) {
+        return null;
+      }
+    },
+    set: function (key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {}
+    }
+  };
+
+  // --- 1. Theme Management (Light / Dark / Auto) ---
+  const ThemeManager = {
+    init: function () {
+      const toggleBtn = document.getElementById('theme-toggle-btn');
+      const root = document.documentElement;
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      const authorMode = root.getAttribute('data-mode');
+      const savedMode = Storage.get('premium-docs-mode');
+
+      // Prefer user's explicit saved preference, otherwise author's baked setting, or auto
+      const initialMode = savedMode || authorMode || 'auto';
+      this.applyMode(initialMode);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const current = root.getAttribute('data-mode') || 'auto';
+          let next = 'dark';
+          if (current === 'light') next = 'dark';
+          else if (current === 'dark') next = 'auto';
+          else if (current === 'auto') next = 'light';
+
+          this.applyMode(next);
+          Storage.set('premium-docs-mode', next);
+        });
+      }
+
+      // Update when OS changes preference and mode is auto
+      mediaQuery.addEventListener('change', () => {
+        const mode = root.getAttribute('data-mode') || 'auto';
+        if (mode === 'auto') {
+          this.applyMode('auto');
+        }
+      });
+    },
+
+    applyMode: function (mode) {
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById('theme-toggle-btn');
+      const iconUse = toggleBtn ? toggleBtn.querySelector('use') : null;
+
+      if (mode === 'auto') {
+        root.removeAttribute('data-mode');
+        if (toggleBtn) toggleBtn.setAttribute('title', 'Theme: Auto (System)');
+        if (iconUse) iconUse.setAttribute('href', '#icon-laptop');
+      } else if (mode === 'dark') {
+        root.setAttribute('data-mode', 'dark');
+        if (toggleBtn) toggleBtn.setAttribute('title', 'Theme: Dark');
+        if (iconUse) iconUse.setAttribute('href', '#icon-moon');
+      } else {
+        root.setAttribute('data-mode', 'light');
+        if (toggleBtn) toggleBtn.setAttribute('title', 'Theme: Light');
+        if (iconUse) iconUse.setAttribute('href', '#icon-sun');
+      }
+    }
+  };
+
+  // --- 2. Reading Progress Bar ---
+  const ProgressManager = {
+    init: function () {
+      const bar = document.getElementById('reading-progress');
+      if (!bar) return;
+
+      const updateProgress = () => {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight <= 0) {
+          bar.style.width = '0%';
+          return;
+        }
+        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+        bar.style.width = progress + '%';
+      };
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress, { passive: true });
+      updateProgress();
+    }
+  };
+
+  // --- 3. Table of Contents & Scroll-Spy ---
+  const TocManager = {
+    init: function () {
+      const tocLinks = document.querySelectorAll('.toc-link');
+      if (tocLinks.length === 0) return;
+
+      const headings = [];
+      tocLinks.forEach((link) => {
+        const id = link.getAttribute('href');
+        if (id && id.startsWith('#')) {
+          const el = document.getElementById(id.substring(1));
+          if (el) headings.push({ el: el, link: link });
+        }
+      });
+
+      if (headings.length === 0) return;
+
+      const setActive = () => {
+        const scrollY = window.scrollY + 100;
+        let current = headings[0];
+
+        for (let i = 0; i < headings.length; i++) {
+          if (headings[i].el.offsetTop <= scrollY) {
+            current = headings[i];
+          } else {
+            break;
+          }
+        }
+
+        tocLinks.forEach((l) => l.classList.remove('active'));
+        if (current && current.link) {
+          current.link.classList.add('active');
+        }
+      };
+
+      window.addEventListener('scroll', setActive, { passive: true });
+      setActive();
+
+      // Mobile Drawer Toggle
+      const openBtn = document.getElementById('mobile-toc-toggle');
+      const closeBtn = document.getElementById('mobile-toc-close');
+      const overlay = document.getElementById('mobile-toc-overlay');
+      const drawer = document.getElementById('mobile-toc-drawer');
+
+      const toggleDrawer = (open) => {
+        if (!drawer || !overlay) return;
+        if (open) {
+          drawer.classList.add('open');
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        } else {
+          drawer.classList.remove('open');
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      };
+
+      if (openBtn) openBtn.addEventListener('click', () => toggleDrawer(true));
+      if (closeBtn) closeBtn.addEventListener('click', () => toggleDrawer(false));
+      if (overlay) overlay.addEventListener('click', () => toggleDrawer(false));
+
+      // Close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
+          toggleDrawer(false);
+        }
+      });
+
+      // Close drawer on clicking link inside mobile drawer
+      if (drawer) {
+        drawer.querySelectorAll('.toc-link').forEach((link) => {
+          link.addEventListener('click', () => toggleDrawer(false));
+        });
+      }
+    }
+  };
+
+  // --- 4. Accessible Tabs ---
+  const TabsManager = {
+    init: function () {
+      const containers = document.querySelectorAll('.tabs-container');
+      containers.forEach((container) => {
+        const tabs = container.querySelectorAll('.tab-button');
+        const panels = container.querySelectorAll('.tab-panel');
+
+        tabs.forEach((tab, index) => {
+          tab.addEventListener('click', () => {
+            tabs.forEach((t) => {
+              t.setAttribute('aria-selected', 'false');
+              t.tabIndex = -1;
+            });
+            panels.forEach((p) => (p.hidden = true));
+
+            tab.setAttribute('aria-selected', 'true');
+            tab.tabIndex = 0;
+            if (panels[index]) panels[index].hidden = false;
+          });
+
+          // W3C ARIA Keyboard navigation
+          tab.addEventListener('keydown', (e) => {
+            let nextIndex = null;
+            if (e.key === 'ArrowRight') {
+              nextIndex = (index + 1) % tabs.length;
+            } else if (e.key === 'ArrowLeft') {
+              nextIndex = (index - 1 + tabs.length) % tabs.length;
+            } else if (e.key === 'Home') {
+              nextIndex = 0;
+            } else if (e.key === 'End') {
+              nextIndex = tabs.length - 1;
+            }
+
+            if (nextIndex !== null) {
+              e.preventDefault();
+              tabs[nextIndex].focus();
+              tabs[nextIndex].click();
+            }
+          });
+        });
+      });
+    }
+  };
+
+  // --- 5. Code Block Copy to Clipboard ---
+  const CodeManager = {
+    init: function () {
+      const buttons = document.querySelectorAll('.copy-button');
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const wrapper = btn.closest('.code-block-wrapper');
+          if (!wrapper) return;
+          const codeEl = wrapper.querySelector('pre code');
+          if (!codeEl) return;
+
+          const text = codeEl.innerText || codeEl.textContent;
+          try {
+            await navigator.clipboard.writeText(text);
+            const originalHTML = btn.innerHTML;
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Copied!';
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              btn.innerHTML = originalHTML;
+            }, 2000);
+          } catch (err) {
+            // Fallback for restricted contexts
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+              document.execCommand('copy');
+              btn.classList.add('copied');
+              btn.innerText = 'Copied!';
+              setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerText = 'Copy';
+              }, 2000);
+            } catch (e) {}
+            document.body.removeChild(textarea);
+          }
+        });
+      });
+    }
+  };
+
+  // --- 6. Quick Actions (Print & Back to Top) ---
+  const ActionsManager = {
+    init: function () {
+      const printBtn = document.getElementById('print-btn');
+      if (printBtn) {
+        printBtn.addEventListener('click', () => window.print());
+      }
+
+      const backToTopButtons = document.querySelectorAll('.back-to-top, #back-to-top-btn');
+      backToTopButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+  };
+
+  // Initialize all managers when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    ThemeManager.init();
+    ProgressManager.init();
+    TocManager.init();
+    TabsManager.init();
+    CodeManager.init();
+    ActionsManager.init();
+  });
+})();
+
+  </script>
+</body>
+</html>
