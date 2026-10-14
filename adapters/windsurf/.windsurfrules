@@ -1,0 +1,12 @@
+<!-- BEGIN PREMIUM-DOCS -->
+## Documentation Standards (premium-docs)
+
+When asked to create visually polished HTML documentation, reports, PRDs, guides, or post-mortems:
+- Follow `skills/premium-docs/SKILL.md`.
+- Write Markdown with YAML frontmatter (`title`, `subtitle`, `date`, `version`, `theme: aurora|slate|paper`, `mode: auto|light|dark`).
+- Author content using container blocks (`:::tldr`, `:::stats`, `:::card-grid`, `:::badge`, `:::timeline`, `:::callout`, `:::steps`, `:::table-wrap`, `:::tabs`).
+- Compile using:
+  `python skills/premium-docs/scripts/build_doc.py <input.md> -o <output.html>`
+- Validate using:
+  `python skills/premium-docs/scripts/validate_doc.py <output.html>`
+<!-- END PREMIUM-DOCS -->

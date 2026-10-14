@@ -1,0 +1,42 @@
+---
+description: Generate publication-grade, self-contained HTML documents (reports, PRDs, architecture guides, postmortems)
+globs: ["**/*.md", "**/*.html"]
+alwaysApply: false
+---
+
+# Premium Docs Guidelines (Cursor)
+
+When asked to create rich documentation, executive reports, PRDs, technical specs, developer guides, runbooks, or incident post-mortems:
+
+1. **Skill Reference**:
+   - Consult `skills/premium-docs/SKILL.md` (or `.cursor/skills/premium-docs/SKILL.md`).
+   - Check `references/doc-recipes.md` for structure and archetype guidance.
+
+2. **Document Syntax**:
+   - Include standard YAML frontmatter:
+     ```yaml
+     ---
+     title: "Document Title"
+     subtitle: "Summary subtitle"
+     date: "YYYY-MM-DD"
+     version: "1.0"
+     theme: "aurora" # aurora | slate | paper
+     mode: "auto"    # auto | light | dark
+     toc: true
+     ---
+     ```
+   - Use container blocks instead of ad-hoc markup:
+     - `:::tldr` for executive takeaways
+     - `:::stats` with `[stat: number, label, delta]`
+     - `:::card-grid` with `:::card`
+     - `:::badge [variant]` (primary, success, warning, danger, neutral)
+     - `:::timeline` with `:::timeline-item`
+     - `:::callout [info|success|warning|danger|tip]`
+     - `:::steps` with `:::step`
+     - `:::table-wrap` for tables
+     - `:::tabs` with `:::tab [Title]`
+
+3. **Compilation & Validation**:
+   - Compile: `python skills/premium-docs/scripts/build_doc.py <path/to/doc.md> -o <path/to/doc.html>`
+   - Validate: `python skills/premium-docs/scripts/validate_doc.py <path/to/doc.html>`
+   - Result: 100% offline, zero-CDN, responsive single-file HTML document.
