@@ -219,8 +219,8 @@ def render_container(node: ContainerNode) -> str:
     # Recursively resolve any child containers that might be nested
     parsed_inner = parse_containers(raw_content)
 
-    # 1. Standard Callouts (note, tip, info, success, warning, danger)
-    if c_type in ("note", "tip", "info", "success", "warning", "danger"):
+    # 1. Standard Callouts (note, tip, info, success, warning, danger, callout)
+    if c_type in ("note", "tip", "info", "success", "warning", "danger", "callout"):
         icons = {
             "note": "file-text",
             "tip": "lightbulb",
@@ -229,15 +229,25 @@ def render_container(node: ContainerNode) -> str:
             "warning": "alert-triangle",
             "danger": "x-circle",
         }
-        icon_name = icons.get(c_type, "info")
-        title = node.title.strip() or c_type.capitalize()
-        # Convert inner markdown to HTML
+        variant = c_type
+        title = node.title.strip()
+        if c_type == "callout":
+            parts = title.split(None, 1)
+            first_word = parts[0].lower() if parts else "info"
+            if first_word in icons:
+                variant = first_word
+                title = parts[1] if len(parts) > 1 else variant.capitalize()
+            else:
+                variant = "info"
+
+        icon_name = icons.get(variant, "info")
+        display_title = title or variant.capitalize()
         inner_html = markdown.markdown(parsed_inner, extensions=["tables", "fenced_code"])
         return f"""
-<div class="callout callout-{c_type}" role="region" aria-label="{html.escape(title)}">
+<div class="callout callout-{variant}" role="region" aria-label="{html.escape(display_title)}">
   <div class="callout-header">
     <svg class="callout-icon" aria-hidden="true"><use href="#icon-{icon_name}"></use></svg>
-    <span class="callout-title">{html.escape(title)}</span>
+    <span class="callout-title">{html.escape(display_title)}</span>
   </div>
   <div class="callout-body">
     {inner_html}
@@ -261,8 +271,24 @@ def render_container(node: ContainerNode) -> str:
 </div>
 """
 
-    # 3. Cards Grid (children separated by ---)
-    if c_type == "cards":
+    # 3. Badges
+    if c_type in ("badge", "badges"):
+        raw_text = (node.title + " " + parsed_inner).strip()
+        parts = raw_text.split(None, 1)
+        variant = "neutral"
+        label = raw_text
+        if parts and parts[0].lower() in ("primary", "success", "warning", "danger", "neutral", "draft", "review", "final"):
+            variant = parts[0].lower()
+            label = parts[1] if len(parts) > 1 else variant.capitalize()
+        return f'<span class="badge badge-{variant}">{html.escape(label)}</span>'
+
+    # 4. Table Wrapper
+    if c_type in ("table-wrap", "table_wrap", "table"):
+        inner_html = markdown.markdown(parsed_inner, extensions=["tables", "fenced_code"])
+        return f'<div class="table-wrapper">{inner_html}</div>'
+
+    # 5. Cards Grid (children separated by ---)
+    if c_type in ("cards", "card-grid", "card_grid", "cardgrid"):
         card_chunks = re.split(r"\n\s*---\s*\n", parsed_inner)
         cards_html: List[str] = []
         for chunk in card_chunks:
@@ -737,6 +763,7 @@ def build_document(
     doc_subtitle = frontmatter.get("subtitle", "")
     doc_author = frontmatter.get("author", "")
     doc_date = frontmatter.get("date", "")
+    doc_version = frontmatter.get("version", "")
     doc_status = frontmatter.get("status", "")
     doc_tags = frontmatter.get("tags", [])
     if isinstance(doc_tags, str):
@@ -838,6 +865,10 @@ def build_document(
         st = doc_status.lower()
         badge_cls = f"badge-{st}" if st in ("draft", "review", "final") else "badge-draft"
         status_badge = f'<span class="badge {badge_cls}">{html.escape(doc_status.capitalize())}</span>'
+    if doc_version:
+        v_str = f"v{str(doc_version).lstrip('v')}"
+        v_badge = f'<span class="badge badge-neutral">{html.escape(v_str)}</span>'
+        status_badge = f"{status_badge} {v_badge}".strip()
 
     tags_html = "".join(
         f'<span class="tag-chip"><svg aria-hidden="true"><use href="#icon-tag"></use></svg>{html.escape(t)}</span>'
