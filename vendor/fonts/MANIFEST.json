@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0",
+  "description": "Font licensing, provenance, and Reserved Font Name (RFN) tracking manifest for premium-docs v0.2",
+  "fonts": [
+    {
+      "name": "Excalifont",
+      "version": "1.000",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-Excalifont.txt",
+      "rfn_declared": true,
+      "reserved_names": ["Excalifont"],
+      "source_url": "https://github.com/excalidraw/excalidraw",
+      "vendor": "Excalidraw",
+      "role": "sketch_headings",
+      "notes": "Original typeface of Excalidraw. OFL-1.1. Embedding permitted. Used unmodified to respect RFN.",
+      "sha256": "PENDING_DOWNLOAD"
+    },
+    {
+      "name": "Caveat",
+      "version": "1.100",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-Caveat.txt",
+      "rfn_declared": false,
+      "source_url": "https://github.com/google/fonts/tree/main/ofl/caveat",
+      "vendor": "Pablo Impallari",
+      "role": "sketch_fallback",
+      "notes": "Verified No Reserved Font Name in Google Fonts repo.",
+      "sha256": "PENDING_DOWNLOAD"
+    },
+    {
+      "name": "Kalam",
+      "version": "2.001",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-Kalam.txt",
+      "rfn_declared": false,
+      "source_url": "https://github.com/google/fonts/tree/main/ofl/kalam",
+      "vendor": "Indian Type Foundry",
+      "role": "notebook_handwriting_and_indic_devanagari",
+      "notes": "Handwriting font supporting both Latin and Devanagari (Hindi, Marathi, Sanskrit).",
+      "sha256": "PENDING_DOWNLOAD"
+    },
+    {
+      "name": "Inter",
+      "version": "4.1",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-Inter.txt",
+      "rfn_declared": false,
+      "source_url": "https://github.com/rsms/inter",
+      "vendor": "Rasmus Andersson",
+      "role": "universal_body_sans",
+      "notes": "Highly legible screen typeface for body reading surfaces.",
+      "sha256": "PENDING_DOWNLOAD"
+    },
+    {
+      "name": "JetBrains Mono",
+      "version": "2.304",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-JetBrainsMono.txt",
+      "rfn_declared": false,
+      "source_url": "https://github.com/JetBrains/JetBrainsMono",
+      "vendor": "JetBrains",
+      "role": "terminal_and_code_mono",
+      "notes": "Engineered for code readability.",
+      "sha256": "PENDING_DOWNLOAD"
+    },
+    {
+      "name": "Fraunces",
+      "version": "1.000",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-Fraunces.txt",
+      "rfn_declared": false,
+      "source_url": "https://github.com/google/fonts/tree/main/ofl/fraunces",
+      "vendor": "Undercase Type",
+      "role": "editorial_serif",
+      "notes": "Warm, contemporary 'wonky' old-style editorial serif.",
+      "sha256": "PENDING_DOWNLOAD"
+    },
+    {
+      "name": "Press Start 2P",
+      "version": "1.000",
+      "license": "OFL-1.1",
+      "license_file": "vendor/fonts/licenses/OFL-PressStart2P.txt",
+      "rfn_declared": false,
+      "source_url": "https://github.com/google/fonts/tree/main/ofl/pressstart2p",
+      "vendor": "Cody Boisclair",
+      "role": "pixel_display",
+      "notes": "Bitmap-style 8-bit display font for headings only.",
+      "sha256": "PENDING_DOWNLOAD"
+    }
+  ]
+}
