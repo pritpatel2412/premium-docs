@@ -644,7 +644,7 @@ def process_headings(html_content: str) -> Tuple[str, List[Tuple[int, str, str]]
         inner = m.group(3)
 
         # Strip any existing anchor or HTML tags for ID generation and clean title
-        clean_text = re.sub(r"<[^>]+>", "", inner).strip()
+        clean_text = html.unescape(re.sub(r"<[^>]+>", "", inner).strip())
 
         # Check if an id is already in attrs
         id_match = re.search(r'id=["\']([^"\']+)["\']', attrs)
